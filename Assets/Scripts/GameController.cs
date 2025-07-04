@@ -13,11 +13,30 @@ public class GameController : MonoBehaviour
         Night
     }
 
+    [Header("Scripts")]
+    public Daytime dayController;
+    public Night nightController;
+
     [SerializeField] public Time currTime;
     public int currDay;
 
     public void Start()
     {
-        currDay = 1;
+        StartDay();
+    }
+
+    public void StartDay()
+    {
+        dayController.StartDay();
+    }
+
+    public void StartEvening()
+    {
+
+    }
+
+    public void StartNight()
+    {
+        nightController.StartNight();
     }
 }
