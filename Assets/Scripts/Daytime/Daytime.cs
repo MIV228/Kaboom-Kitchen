@@ -53,13 +53,13 @@ public class Daytime : MonoBehaviour
 
     private void Update()
     {
+        if (gc.currTime != GameController.Time.Day) return;
+
         timer += Time.deltaTime;
         if (timer >= 120 && !Cooking) 
         {
             EndDay();
         }
-
-        timer = 0;
     }
 
     public void GenerateShaurma()
@@ -87,6 +87,10 @@ public class Daytime : MonoBehaviour
         foreach (Transform c in customerHolder)
         {
             if (c != customerHolder) Destroy(c.gameObject);
+        }
+        foreach (Transform c in shaurmaHolder)
+        {
+            if (c != shaurmaHolder) Destroy(c.gameObject);
         }
 
         currShaurma = Instantiate(shaurma, shaurmaHolder);
@@ -124,6 +128,10 @@ public class Daytime : MonoBehaviour
 
     public void EndDay()
     {
+        foreach (Transform c in customerHolder)
+        {
+            if (c != customerHolder) Destroy(c.gameObject);
+        }
         gc.StartNight();
     }
 }

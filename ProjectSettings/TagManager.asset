@@ -10,6 +10,8 @@ TagManager:
   - Explosion
   - Food
   - Trashcan
+  - Customer
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,9 +19,9 @@ TagManager:
   - Ignore Rockets
   - Water
   - UI
-  - 
-  - 
-  - 
+  - EnemyRagdoll
+  - Player
+  - Hitbox
   - 
   - 
   - 

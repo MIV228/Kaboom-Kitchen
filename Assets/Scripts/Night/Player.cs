@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
     public int currDamage;
     public int currArmorPierce;
 
-    public int money;
-
+    public Transform katanaPlane;
 
     void Start()
     {

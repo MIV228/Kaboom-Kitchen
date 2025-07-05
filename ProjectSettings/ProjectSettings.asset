@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: ZodwarsInc
+  companyName: Zodwars Inc.
   productName: Kaboom Kitchen
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -134,7 +134,9 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -2578991734115274005, guid: 44e364c21b05da04eb33e3d82be0f465, type: 2}
+  - {fileID: -4305012675284583141, guid: 80264420dcbc37b40a153079eb86820b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1

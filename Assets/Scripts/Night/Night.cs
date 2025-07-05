@@ -19,6 +19,7 @@ public class Night : MonoBehaviour
     public List<Enemy> availableEnemies;
 
     public int enemiesLeft;
+    public float spawnTimer;
 
     private void Start()
     {
@@ -28,19 +29,23 @@ public class Night : MonoBehaviour
 
     public void StartNight()
     {
-        enemiesLeft = 4 + gc.currDay * 3;
+        enemiesLeft = 4 + (gc.currDay * 3);
         availableEnemies.Clear();
         foreach (EnemyListEntry enemy in all_enemies)
         {
             if (enemy.minSpawnWave <= gc.currDay) availableEnemies.Add(enemy.enemy);
         }
+        player = FindObjectOfType<Player>();
     }
 
     private void Update()
     {
+        if (gc.currTime != GameController.Time.Night) return;
+
         Enemy[] enemies = FindObjectsOfType<Enemy>();
-        if (enemies.Length < 15 && enemiesLeft > 0)
+        if (enemies.Length < 15 && enemiesLeft > 0 && spawnTimer <= 0)
         {
+            spawnTimer = 0.5f;
             enemiesLeft -= 1;
             Vector2 circle = Random.insideUnitCircle.normalized;
             Vector3 enemySpawnPosition = player.transform.position + new Vector3(circle.x, 0, circle.y) * 30;
@@ -49,14 +54,18 @@ public class Night : MonoBehaviour
             e.health = Mathf.RoundToInt(e.health * gc.currDay * gc.currDay * 0.25f);
             e.armor = Mathf.RoundToInt(e.armor * (gc.currDay - 1) * 0.5f);
         }
-        if (enemies.Length == 0 && enemiesLeft == 0)
+        if (enemies.Length == 0 && enemiesLeft == 0 && !ending)
         {
-            EndNight();
+            ending = true;
+            Invoke(nameof(EndNight), 2);
         }
+
+        spawnTimer -= Time.deltaTime;
     }
 
+    bool ending;
     public void EndNight()
     {
-
+        gc.StartDay();
     }
 }

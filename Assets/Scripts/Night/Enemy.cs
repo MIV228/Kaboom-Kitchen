@@ -1,20 +1,23 @@
+using EzySlice;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
     public int health;
     public int armor;
 
+    public Animator animator;
     public GameObject model;
-    public GameObject ragdoll;
 
     public float runSpeed;
 
     public int ai_ID;
 
     public Transform target;
+    public Player player;
     public Rigidbody rb;
 
     public float attackCD;
@@ -25,14 +28,20 @@ public class Enemy : MonoBehaviour
 
     public float stunTime;
 
+    public bool isDead;
+    public GameObject corpse;
+
     void Start()
     {
-        target = FindObjectOfType<Player>().transform;
+        player = FindObjectOfType<Player>();
+        target = player.transform;
         rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
+        if (isDead) return;
+
         if (stunTime <= 0)
         {
             if (!isAttacking)
@@ -64,13 +73,25 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        model.SetActive(false);
-        ragdoll.SetActive(true);
+        isDead = true;
+        animator.enabled = false;
+        Mesh m = new Mesh();
+        model.GetComponent<SkinnedMeshRenderer>().BakeMesh(m);
+        GameObject g = Instantiate(corpse, model.transform.position, model.transform.rotation);
+        g.GetComponent<MeshFilter>().mesh = m;
+        g.GetComponent<MeshRenderer>().materials = model.GetComponent<SkinnedMeshRenderer>().materials;
+        g.AddComponent<MeshCollider>();
+        g.GetComponent<MeshCollider>().convex = true;
+        g.GetComponent<MeshCollider>().providesContacts = true;
+        Destroy(model.GetComponent<SkinnedMeshRenderer>());
+        Destroy(gameObject);
     }
 
     public IEnumerator Attack()
     {
+        animator.SetTrigger("Attack");
         isAttacking = true;
+        yield return new WaitForSeconds(0.2f);
         attackCDTimer = attackCD;
         attackHitbox.SetActive(true);
         yield return new WaitForSeconds(0.2f);

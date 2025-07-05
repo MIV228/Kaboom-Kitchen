@@ -488,7 +488,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.7, z: 1}
+  m_Size: {x: 0.7, y: 0.7, z: 1}
   m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!114 &4825341080426403919
 MonoBehaviour:
@@ -535,6 +535,8 @@ MonoBehaviour:
       type: 3}
   wrapTimer: 0
   wrapSlider: {fileID: 4569706459754893903}
+  ingredientCount: 0
+  ingredientHolder: {fileID: 8094131977126460338}
   send: 0
 --- !u!1 &7446532507701424887
 GameObject:
