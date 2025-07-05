@@ -101,7 +101,10 @@ public class Daytime : MonoBehaviour
 
     public void DeleteShaurma()
     {
-        Destroy(currShaurma);
+        foreach (Transform c in shaurmaHolder)
+        {
+            if (c != shaurmaHolder) Destroy(c.gameObject);
+        }
         currShaurma = Instantiate(shaurma, shaurmaHolder);
     }
 

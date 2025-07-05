@@ -53,7 +53,7 @@ public class Hitbox : MonoBehaviour
                 upper_hull.AddComponent<MeshCollider>();
                 upper_hull.GetComponent<MeshCollider>().convex = true;
                 upper_hull.GetComponent<MeshCollider>().providesContacts = true;
-                upper_hull.GetComponent<Rigidbody>().AddForce(player.katanaPlane.up * 0.5f, ForceMode.Impulse);
+                upper_hull.GetComponent<Rigidbody>().AddForce(player.katanaPlane.up, ForceMode.Impulse);
                 upper_hull.layer = 6;
                 upper_hull.AddComponent<EnemyCorpse>();
 
@@ -61,7 +61,7 @@ public class Hitbox : MonoBehaviour
                 lower_hull.AddComponent<MeshCollider>();
                 lower_hull.GetComponent<MeshCollider>().convex = true;
                 lower_hull.GetComponent<MeshCollider>().providesContacts = true;
-                upper_hull.GetComponent<Rigidbody>().AddForce(-player.katanaPlane.up * 0.5f, ForceMode.Impulse);
+                upper_hull.GetComponent<Rigidbody>().AddForce(-player.katanaPlane.up, ForceMode.Impulse);
                 lower_hull.layer = 6;
                 lower_hull.AddComponent<EnemyCorpse>();
 
