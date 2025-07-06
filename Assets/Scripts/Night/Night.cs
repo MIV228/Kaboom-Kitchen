@@ -36,6 +36,8 @@ public class Night : MonoBehaviour
             if (enemy.minSpawnWave <= gc.currDay) availableEnemies.Add(enemy.enemy);
         }
         player = FindObjectOfType<Player>();
+        player.health = player.maxHealth;
+        ending = false;
     }
 
     private void Update()
@@ -51,8 +53,9 @@ public class Night : MonoBehaviour
             Vector3 enemySpawnPosition = player.transform.position + new Vector3(circle.x, 0, circle.y) * 30;
             enemySpawnPosition.y = 1;
             Enemy e = Instantiate(availableEnemies[Random.Range(0, availableEnemies.Count)].gameObject, enemySpawnPosition, Quaternion.identity).GetComponent<Enemy>();
-            e.health = Mathf.RoundToInt(e.health * gc.currDay * gc.currDay * 0.25f);
-            e.armor = Mathf.RoundToInt(e.armor * (gc.currDay - 1) * 0.5f);
+            e.health = Mathf.RoundToInt(e.health * gc.currDay * gc.currDay / 10);
+            e.armor = Mathf.RoundToInt(e.armor + (gc.currDay - 1) * e.armorIncrement);
+            e.damage = Mathf.RoundToInt(e.damage * (1 + (gc.currDay - 1) * 0.1f));
         }
         if (enemies.Length == 0 && enemiesLeft == 0 && !ending)
         {

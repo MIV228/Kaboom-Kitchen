@@ -8,7 +8,6 @@ public class Daytime : MonoBehaviour
     public GameController gc;
 
     public float timer;
-    public int currentDay;
     public int shaurmaWeight;
     public Shaurma shaurma;
     public Transform shaurmaHolder;
@@ -67,17 +66,17 @@ public class Daytime : MonoBehaviour
         List<Product> availableProducts = new List<Product>();
         foreach (Product product in allProducts)
         {
-            if (product.MinimalWaveToSpawn <= currentDay) { 
+            if (product.MinimalWaveToSpawn <= gc.currDay) { 
                 availableProducts.Add(product);
             }
         }
 
-        shaurmaWeight = currentDay * 3;
+        shaurmaWeight = gc.currDay * 3;
         Dictionary<int, int> newShaurma = new Dictionary<int, int>();
 
         foreach (Product product in availableProducts)
         {
-            int productAmount = Random.Range(0, currentDay + 1);
+            int productAmount = Random.Range(0, gc.currDay + 1);
             if (productAmount > 0) newShaurma.Add(product.ID, productAmount);
         }
         currentTask.Clear();
@@ -124,6 +123,7 @@ public class Daytime : MonoBehaviour
         }
         int m = currShaurma.thisShaurma.Count - mistakes;
         if (m < 0) m = 0;
+        if (mistakes == 0) m += 5;
         money.money += m;
         if (timer >= 120) Cooking = false;
         else GenerateShaurma();

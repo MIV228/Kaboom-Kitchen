@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameController : MonoBehaviour
 {
@@ -23,7 +24,14 @@ public class GameController : MonoBehaviour
     public Transform playerSpawn;
 
     public GameObject xr_twohanded;
-    public GameObject xr_player;
+
+    public Jump jump;
+    public Player player;
+    public GameObject knife;
+    public GameObject rightHand;
+
+    public Transform r_FoodHolder;
+    public Transform l_FoodHolder;
 
     [Header("Time")]
     [SerializeField] public Time currTime;
@@ -37,14 +45,18 @@ public class GameController : MonoBehaviour
 
     public void Start()
     {
+        r_FoodHolder = GameObject.Find("r_FoodHolder").transform;
+        l_FoodHolder = GameObject.Find("l_FoodHolder").transform;
         StartDay();
     }
 
     public void StartDay()
     {
         currDay++;
-        xr_twohanded.SetActive(true);
-        xr_player.SetActive(false);
+        jump.enabled = false;
+        player.enabled = false;
+        knife.SetActive(false);
+        rightHand.SetActive(true);
         xr_twohanded.transform.position = twohandSpawn.position;
         moon.SetActive(false);
         sun.SetActive(true);
@@ -60,9 +72,19 @@ public class GameController : MonoBehaviour
 
     public void StartNight()
     {
-        xr_player.SetActive(true);
-        xr_twohanded.SetActive(false);
-        xr_player.transform.position = playerSpawn.position;
+        jump.enabled = true;
+        player.enabled = true;
+        knife.SetActive(true);
+        rightHand.SetActive(false);
+        foreach (Transform t in r_FoodHolder)
+        {
+            if (t != r_FoodHolder) Destroy(t.gameObject);
+        }
+        foreach (Transform t in l_FoodHolder)
+        {
+            if (t != l_FoodHolder) Destroy(t.gameObject);
+        }
+        xr_twohanded.transform.position = playerSpawn.position;
         currTime = Time.Night;
         sun.SetActive(false);
         moon.SetActive(true);

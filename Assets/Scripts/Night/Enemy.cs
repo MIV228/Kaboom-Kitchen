@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
 {
     public int health;
     public int armor;
+    public int armorIncrement;
+
+    public int damage;
 
     public Animator animator;
     public GameObject model;
@@ -24,7 +27,7 @@ public class Enemy : MonoBehaviour
     public float attackCDTimer;
     public bool isAttacking;
     public float minAttackDistance;
-    public GameObject attackHitbox;
+    public Hitbox attackHitbox;
 
     public float stunTime;
 
@@ -36,6 +39,8 @@ public class Enemy : MonoBehaviour
         player = FindObjectOfType<Player>();
         target = player.transform;
         rb = GetComponent<Rigidbody>();
+        attackHitbox.damage = damage;
+        attackHitbox.gameObject.SetActive(false);
     }
 
     void Update()
@@ -49,7 +54,7 @@ public class Enemy : MonoBehaviour
                 transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
                 rb.AddForce(transform.forward * runSpeed * Time.deltaTime, ForceMode.Force);
             }
-            if (Vector3.Distance(transform.position, target.position) <= minAttackDistance) StartCoroutine(Attack());
+            if (Vector3.Distance(transform.position, target.position) <= minAttackDistance && attackCDTimer <= 0) StartCoroutine(Attack());
         }
         else
         {
@@ -93,9 +98,9 @@ public class Enemy : MonoBehaviour
         isAttacking = true;
         yield return new WaitForSeconds(0.2f);
         attackCDTimer = attackCD;
-        attackHitbox.SetActive(true);
+        attackHitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
-        attackHitbox.SetActive(false);
+        attackHitbox.gameObject.SetActive(false);
         isAttacking = false;
     }
 }
