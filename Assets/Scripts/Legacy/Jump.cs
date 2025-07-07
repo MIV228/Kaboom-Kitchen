@@ -59,7 +59,7 @@ public class Jump : MonoBehaviour
             jump = false;
         }
 
-        float triggerValueR = restartAction.action.ReadValue<float>();
+        /*float triggerValueR = restartAction.action.ReadValue<float>();
         if (triggerValueR > 0)
         {
             if (lastCheckpoint != null)
@@ -68,6 +68,6 @@ public class Jump : MonoBehaviour
                 rb.velocity = Vector3.zero;
             }
             else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        }*/
     }
 }

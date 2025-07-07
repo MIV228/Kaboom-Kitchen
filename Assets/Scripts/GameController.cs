@@ -17,10 +17,12 @@ public class GameController : MonoBehaviour
 
     [Header("Scripts")]
     public Daytime dayController;
+    public Shop shop;
     public Night nightController;
 
     [Header("References")]
     public Transform twohandSpawn;
+    public Transform shopSpawn;
     public Transform playerSpawn;
 
     public GameObject xr_twohanded;
@@ -41,6 +43,10 @@ public class GameController : MonoBehaviour
     public GameObject even;
     public GameObject moon;
 
+    public AudioSource music_day;
+    public AudioSource music_shop;
+    public AudioSource music_night;
+
     public TMP_Text dayText;
 
     public void Start()
@@ -55,6 +61,8 @@ public class GameController : MonoBehaviour
         currDay++;
         jump.enabled = false;
         player.enabled = false;
+        music_day.Play();
+        music_night.Stop();
         knife.SetActive(false);
         rightHand.SetActive(true);
         xr_twohanded.transform.position = twohandSpawn.position;
@@ -67,13 +75,18 @@ public class GameController : MonoBehaviour
 
     public void StartEvening()
     {
-
+        currTime = Time.Evening;
+        jump.enabled = true;
+        player.enabled = true;
+        music_shop.Play();
+        shop.Regenerate();
+        xr_twohanded.transform.position = shopSpawn.position;
     }
 
     public void StartNight()
     {
-        jump.enabled = true;
-        player.enabled = true;
+        music_night.Play();
+        music_shop.Stop();
         knife.SetActive(true);
         rightHand.SetActive(false);
         foreach (Transform t in r_FoodHolder)

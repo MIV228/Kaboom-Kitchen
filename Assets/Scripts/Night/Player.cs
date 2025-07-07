@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public int currArmorPierce;
 
     public Transform katanaPlane;
+    public Hitbox hitbox;
 
     public TMP_Text healthText;
     public TMP_Text damageText;
@@ -23,23 +24,30 @@ public class Player : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        UpdateValues();
     }
 
     void Update()
     {
-        healthText.text = health.ToString() + "/" + maxHealth.ToString() + "здоровья";
+        healthText.text = health.ToString() + "/" + maxHealth.ToString() + " HP";
+    }
+
+    public void UpdateValues()
+    {
         damageText.text = currDamage.ToString() + " урона";
         apText.text = currArmorPierce.ToString() + " пробивания";
+        hitbox.damage = currDamage;
+        hitbox.armorPierce = currArmorPierce;
     }
 
     public void Hurt(int damage)
     {
         health -= damage;
+        if (health <= 0) Die();
     }
 
-    public IEnumerator Die()
+    public void Die()
     {
-
-        yield return null;
+        SceneManager.LoadScene(2);
     }
 }

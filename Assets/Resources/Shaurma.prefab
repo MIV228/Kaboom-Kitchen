@@ -537,6 +537,12 @@ MonoBehaviour:
   wrapSlider: {fileID: 4569706459754893903}
   ingredientCount: 0
   ingredientHolder: {fileID: 8094131977126460338}
+  particlesIA: {fileID: 8359950341108621753, guid: e5a58b71462d52f448f14de7140b622c,
+    type: 3}
+  particlesEat: {fileID: 1050665828626270840, guid: e495612914c9d9b46ac1cc35434c8941,
+    type: 3}
+  wrapSound: {fileID: 3477301102053191321, guid: 6f5801cb3e83f544bad3f9002baaf19b,
+    type: 3}
   send: 0
 --- !u!1 &7446532507701424887
 GameObject:

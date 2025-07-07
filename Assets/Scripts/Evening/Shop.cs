@@ -21,6 +21,8 @@ public class Shop : MonoBehaviour
     public int reroll_cost = 5;
     public TMP_Text reroll_text;
 
+    public GameObject purchase_sound;
+
     public Player playerController;
     public GameController globalRoomController;
 
@@ -34,12 +36,15 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < item_count; i++)
         {
-            item_points.Add(new Vector3(1.3f * i - (1.3f * (item_count - 1) / 2), 0, 0));
-            GameObject g = Instantiate(price_tag_prefab, price_tag_holder);
-            g.transform.localPosition = new Vector3(1.3f * i - (1.3f * (item_count - 1) / 2), 0, 0);
-            price_tags.Add(g.transform.GetChild(0).GetComponent<TMP_Text>());
+            item_points.Add(new Vector3(2 * i - (2 * (item_count - 1) / 2), 0, 0));
         }
         GenerateStock();
+    }
+    
+    public void Regenerate()
+    {
+        reroll_cost = 2;
+        Reroll();
     }
 
     public void Reroll()

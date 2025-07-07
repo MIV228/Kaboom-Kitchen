@@ -14,6 +14,8 @@ public class Hitbox : MonoBehaviour
 
     public float sliceCD;
     public Material crossSectionMaterial;
+    public Material rock_crossSectionMaterial;
+    public Material cactus_crossSectionMaterial;
 
     private void Start()
     {
@@ -44,8 +46,11 @@ public class Hitbox : MonoBehaviour
 
             if (hull != null)
             {
-                GameObject upper_hull = hull.CreateUpperHull(other.gameObject, crossSectionMaterial);
-                GameObject lower_hull = hull.CreateLowerHull(other.gameObject, crossSectionMaterial);
+                Material endMat = crossSectionMaterial;
+                if (other.gameObject.name.Contains("Cactus")) endMat = cactus_crossSectionMaterial;
+                else if (other.gameObject.name.Contains("Rock")) endMat = rock_crossSectionMaterial;
+                GameObject upper_hull = hull.CreateUpperHull(other.gameObject, endMat);
+                GameObject lower_hull = hull.CreateLowerHull(other.gameObject, endMat);
 
                 sliceCD = 0.2f;
 

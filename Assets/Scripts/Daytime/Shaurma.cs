@@ -26,6 +26,10 @@ public class Shaurma : MonoBehaviour
     public int ingredientCount;
     public Transform ingredientHolder;
 
+    public GameObject particlesIA;
+    public GameObject particlesEat;
+    public GameObject wrapSound;
+
     public bool send;
 
     private void Start()
@@ -64,6 +68,8 @@ public class Shaurma : MonoBehaviour
             keys = thisShaurma.Keys.ToList();
             values = thisShaurma.Values.ToList();
             wrapTimer = 0;
+
+            Instantiate(particlesIA, transform.position, transform.rotation);
         }
         else if (other.tag == "RightHand")
         {
@@ -93,7 +99,7 @@ public class Shaurma : MonoBehaviour
     {
         lavash.SetActive(false);
         shaurma.SetActive(true);
-
+        Instantiate(wrapSound, transform.position, transform.rotation);
         shaurma.transform.LookAt(daytime.shaurma_destination.position);
         shaurma.transform.Rotate(shaurma.transform.up, 90);
         GetComponent<BoxCollider>().enabled = false;
@@ -105,6 +111,7 @@ public class Shaurma : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, daytime.shaurma_destination.position, time * 4 / 3);
             yield return null;
         }
+        Instantiate(particlesEat, transform.position, transform.rotation);
         daytime.CheckShaurma();
         Destroy(gameObject);
     }

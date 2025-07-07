@@ -586,6 +586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   armor: 0
+  armorIncrement: 0
   damage: 10
   animator: {fileID: 7646549098741450522}
   model: {fileID: 7005891773459883328}
@@ -602,6 +603,8 @@ MonoBehaviour:
   stunTime: 0
   isDead: 0
   corpse: {fileID: 7579462117277883444, guid: 2f3809034e1669b4f9dc889c0d255e43, type: 3}
+  hitSound: {fileID: 8359950341108621753, guid: 20d3c38f0c3c94840ae94d3bde5ccd66,
+    type: 3}
 --- !u!54 &2853869006723274451
 Rigidbody:
   m_ObjectHideFlags: 0

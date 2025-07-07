@@ -90,6 +90,8 @@ MonoBehaviour:
   stunTime: 0
   isDead: 0
   corpse: {fileID: 7579462117277883444, guid: 2f3809034e1669b4f9dc889c0d255e43, type: 3}
+  hitSound: {fileID: 8359950341108621753, guid: 20d3c38f0c3c94840ae94d3bde5ccd66,
+    type: 3}
 --- !u!54 &4451629787430686570
 Rigidbody:
   m_ObjectHideFlags: 0

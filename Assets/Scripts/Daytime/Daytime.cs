@@ -55,7 +55,7 @@ public class Daytime : MonoBehaviour
         if (gc.currTime != GameController.Time.Day) return;
 
         timer += Time.deltaTime;
-        if (timer >= 120 && !Cooking) 
+        if (timer >= 90 && !Cooking) 
         {
             EndDay();
         }
@@ -81,6 +81,7 @@ public class Daytime : MonoBehaviour
         }
         currentTask.Clear();
         currentTask = newShaurma;
+        taskView.daytime = this;
         taskView.UpdateView();
 
         foreach (Transform c in customerHolder)
@@ -125,7 +126,7 @@ public class Daytime : MonoBehaviour
         if (m < 0) m = 0;
         if (mistakes == 0) m += 5;
         money.money += m;
-        if (timer >= 120) Cooking = false;
+        if (timer >= 90) Cooking = false;
         else GenerateShaurma();
     }
 
@@ -135,6 +136,6 @@ public class Daytime : MonoBehaviour
         {
             if (c != customerHolder) Destroy(c.gameObject);
         }
-        gc.StartNight();
+        gc.StartEvening();
     }
 }

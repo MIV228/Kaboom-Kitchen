@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
     public bool isDead;
     public GameObject corpse;
 
+    public GameObject hitSound;
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -74,6 +76,7 @@ public class Enemy : MonoBehaviour
         health -= d;
         stunTime = 1;
         rb.AddForce(-transform.forward, ForceMode.Impulse);
+        Instantiate(hitSound, transform.position, transform.rotation);
     }
 
     public void Die()
